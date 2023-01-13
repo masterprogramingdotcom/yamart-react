@@ -8,7 +8,7 @@ const useRegistrationFormValidation = () => {
 	const [phoneErr, setPhoneErr] = useState("");
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
-	const baseUrl = new URL("http://13.127.79.250:8500");
+	const baseUrl = new URL("http://13.127.79.250");
 	function handleFormSubmit(e) {
 		e.preventDefault();
 		const first_name = e.target.name.value;

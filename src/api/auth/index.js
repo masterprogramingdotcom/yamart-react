@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://13.127.79.250:8500";
+const baseUrl = "http://13.127.79.250";
 
 export const signup = async (data) => {
   try {
