@@ -10,7 +10,7 @@ import OrderDetails from "../pages/ecommerce/order-details/OrderDetails";
 import Orders from "../pages/ecommerce/orders/Orders";
 import ProductDetails from "../pages/ecommerce/product-detials/ProductDetails";
 import Products from "../pages/ecommerce/products/Products";
-
+import AccountDetails from "../pages/ecommerce/account-details/AccountDetails";
 export const publicRoutes = [
 	{id: 1, path: "/login", Page: Login},
 	{id: 2, path: "/logout", Page: Logout},
@@ -24,4 +24,5 @@ export const publicRoutes = [
 	{id: 10, path: "/orders", Page: Orders},
 	{id: 11, path: "/order-details", Page: OrderDetails},
 	{id: 12, path: "/verify-otp/:num", Page: VerifyOTP},
+	{id: 13, path: "/account-details", Page: AccountDetails},
 ];

@@ -13,6 +13,7 @@ module.exports = {
         accent: "",
         darken: "#1f2937",
         muted: "#374151",
+        war:'#E27022'
       },
       fontFamily: {
         "sans-pro": ["Source Sans Pro", "sans-serif"],
