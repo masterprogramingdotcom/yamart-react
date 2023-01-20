@@ -60,8 +60,10 @@ return (
 </div> 
 <p class="mb-3 mt-3 font-light text-gray-500 dark:text-gray-400">Cheque/Passbook should have business or trade name on it. </p>
 </div>
-
+<button class="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Continue</span>
+ </button>
         </div>
+
 );
 
 };

@@ -87,6 +87,8 @@ return (
   <p class="mb-3 text-gray-900 dark:text-gray-300 ">Maharashtra </p>
   </div>
 </div>
+<button class="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Continue</span>
+ </button>
         </div>
 );
 

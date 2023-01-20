@@ -39,7 +39,8 @@ return (
     <label for="link-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree to comply with Yamart seller T&C</label>
 </div>
 </div>
-
+<button class="mt-4 bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Save</span>
+ </button>
         </div>
 );
 

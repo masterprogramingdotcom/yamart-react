@@ -1,4 +1,5 @@
 import ForgotPassword from "../pages/authentication/ForgotPassword";
+import Changepassword from "../pages/authentication/Changepassword";
 import Login from "../pages/authentication/login/Login";
 import Logout from "../pages/authentication/Logout";
 import PrivacyAndPolicy from "../pages/authentication/PrivacyAndPolicy";
@@ -25,4 +26,5 @@ export const publicRoutes = [
 	{id: 11, path: "/order-details", Page: OrderDetails},
 	{id: 12, path: "/verify-otp/:num", Page: VerifyOTP},
 	{id: 13, path: "/account-details", Page: AccountDetails},
+	{id: 14, path: "/changepassword", Page: Changepassword},
 ];

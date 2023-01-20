@@ -12,7 +12,7 @@ import {
 	FormSubmitButton,
 	LoadingBtn,
   } from "../../components/AuthPageComponents";
-const ForgotPassword = () => {
+const Changepassword = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { values, errors, handleChange, handleSubmit } = useFormik({
 		initialValues: {
@@ -41,22 +41,30 @@ const ForgotPassword = () => {
 		  <div className="flex-1 ">
 			<div className="max-w-sm ml-16  w-full">
 			  <AuthPageTopInfo
-				title={"Forget Password"}
-				subtitle={"Already have an account? "}
-				linkText="Sign in"
-				path="/login"
+				title={"Change Password"}
 			  />
 			  <form onSubmit={handleSubmit} className="space-y-4 ">
       
       
       <div>
-        <FormLabel text={"Email Address"} />
+        <FormLabel text={"Enter Password"} />
         <FormInputComp
-          type="email"
-          name="email"
+          type="password"
+          name="password"
           onChange={handleChange}
           value={values.email}
-          placeholder="Enter Email Address"
+          placeholder="Enter Password"
+        />
+        {errors && <p className="text-red-600 text-sm mt-2">{errors.email}</p>}
+      </div>
+      <div>
+        <FormLabel text={"Confirm Password"} />
+        <FormInputComp
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={values.email}
+          placeholder="Confirm Password"
         />
         {errors && <p className="text-red-600 text-sm mt-2">{errors.email}</p>}
       </div>
@@ -73,4 +81,4 @@ const ForgotPassword = () => {
 	);
 };
 
-export default ForgotPassword;
+export default Changepassword;
