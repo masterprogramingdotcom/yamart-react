@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiUrl = "http://13.127.79.250";
+const apiUrl = "http://13.127.209.252";
 
 export const categoryPost = async (data, token) => {
   try {

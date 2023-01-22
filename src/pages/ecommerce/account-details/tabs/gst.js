@@ -1,7 +1,7 @@
 import react from "react"
 
-const gst = (formlink) => {
-
+const gst = (gstalldata) => {
+console.log("on gst page",gstalldata.gstalldata)
 return (
     <div className="w-100">
     <div className="w-96">
@@ -28,19 +28,17 @@ return (
         <div class="max-w-2xl mt-10 grid grid-cols-2 gap-2">
   <div>
   <p class=" font-light text-gray-500 dark:text-gray-400">GSTIN </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300">27AAJCA4788P1ZR </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300">{gstalldata.gstalldata.gstalldata?.gstin}</p>
   </div>
 
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Business Type </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">Service Provision </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.dty} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Business Name </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">ATS CARGO PRIVATE LIMITED </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.lgnm} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Registered Business Address </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">208, 2ND FLOOR, AVOIR, NIRMAL GALAXY,
-MULUND W, LBS MARG, Pincode - 400080,
-Mumbai Suburban, Maharashtra </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.pradr?.adr} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">PAN Number </p>
   <p class="mb-3 text-gray-900 dark:text-gray-300 ">AAJCA4788P </p>

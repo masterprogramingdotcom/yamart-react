@@ -10,6 +10,8 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import OrderDetails from "../pages/ecommerce/order-details/OrderDetails";
 import Orders from "../pages/ecommerce/orders/Orders";
 import ProductDetails from "../pages/ecommerce/product-detials/ProductDetails";
+import Productedit from "../pages/ecommerce/product-edit/Productedit";
+import ChangePPassword from "../pages/change-p-password";
 import Products from "../pages/ecommerce/products/Products";
 import AccountDetails from "../pages/ecommerce/account-details/AccountDetails";
 export const publicRoutes = [
@@ -27,4 +29,6 @@ export const publicRoutes = [
 	{id: 12, path: "/verify-otp/:num", Page: VerifyOTP},
 	{id: 13, path: "/account-details", Page: AccountDetails},
 	{id: 14, path: "/changepassword", Page: Changepassword},
+	{id: 15, path: "/change-p-password", Page: ChangePPassword},
+	{id: 16, path: "/edit-product/:id", Page: Productedit},
 ];

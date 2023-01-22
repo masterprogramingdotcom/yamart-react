@@ -3,7 +3,8 @@ import GST from "./tabs/gst"
 import PICKUP from "./tabs/pickup"
 import ACCOUNT from "./tabs/account"
 import SUPPLIER from "./tabs/supplier"
-const AccountDetailsTabs = () => {
+const AccountDetailsTabs = (gstalldata) => {
+	console.log("on Account tab page", gstalldata)
     const [active, setActive] = useState(0);
 	const [clicked, setClicked] = useState(0);
 	const blocks = [
@@ -31,10 +32,10 @@ const AccountDetailsTabs = () => {
 			</nav>
 			<div className="mt-5 mb-5">
 			
-				{active === 0 && <GST />}
-				{active === 1 && <PICKUP />}
-				{active === 2 && <ACCOUNT />}
-				{active === 3 && <SUPPLIER />}
+				{active === 0 && <GST gstalldata={gstalldata}/>}
+				{active === 1 && <PICKUP  />}
+				{active === 2 && <ACCOUNT  />}
+				{active === 3 && <SUPPLIER  />}
 			</div>
 		</div>
 	);

@@ -2,14 +2,16 @@ import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { productGet } from "../../../api/product";
+import { productGet, productDelete } from "../../../api/product";
 import { Pagination } from "../../../components/ECommercePageComponents";
 import { productsTableData } from "../ecommerceContant";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const ProductsTable = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [pdelete, setpdelete] = useState()
   const isLoad = useSelector((state) => state.loader.isLoad);
   const token = useSelector((state) => state.auth.token);
 
@@ -22,6 +24,18 @@ const ProductsTable = () => {
     setIsLoading(false);
   }, [isLoad, token]);
 
+  useEffect(() => {
+  (async () => {
+      const res = await productDelete(token, pdelete);
+      if(res.status===204) {
+        toast.success("Product Deleted Successful!");
+      }
+      if (res?.code === "ERR_BAD_REQUEST") {
+        toast.error("Some Error! please try again!");
+      }
+})();
+  }, [pdelete]);
+console.log(pdelete)
   return (
     <div className="overflow-hidden w-full max-w-6xl mx-auto overflow-x-auto rounded-lg border border-gray-200">
       <table className="min-w-full divide-y divide-gray-100 text-sm">
@@ -68,6 +82,12 @@ const ProductsTable = () => {
                 <td className="whitespace-nowrap px-4 flex items-center  py-3">
                   <Link to="" className="text-2xl">
                     <AiFillEye />
+                  </Link>
+                  <Link to={`/edit-product/${each.id}`} className="text-2xl">
+                    Edit
+                  </Link>
+                  <Link onClick={(e)=> {setpdelete(each.id)}} to="" className="text-2xl">
+                    Delete
                   </Link>
                 </td>
               </tr>

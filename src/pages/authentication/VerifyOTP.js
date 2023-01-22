@@ -14,7 +14,7 @@ import { Navigate } from "react-router-dom";
 const VerifyOTP = () => {
   const { num } = useParams();
   console.log(num);
-  const baseUrl = "http://13.127.79.250/auth";
+  const baseUrl = "http://13.127.209.252/auth";
   const [otpCode, setOtpCode] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();

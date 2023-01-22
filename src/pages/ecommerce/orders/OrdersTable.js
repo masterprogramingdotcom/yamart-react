@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Pagination} from "../../../components/ECommercePageComponents";
 import {ordersTableData} from "../ecommerceContant";
+import {  Orderget} from "../../../api/orders";
+import { useSelector } from "react-redux";
 
 const OrdersTable = () => {
+	const [orderdid, setorderdid] = useState()
+	const [isLoading, setIsLoading] = useState(false);
+
+	const isLoad = useSelector((state) => state.loader.isLoad);
+	const token = useSelector((state) => state.auth.token);
+  
+const [orders, setorders] = useState()
+	useEffect(() => {
+		(async () => {
+		  setIsLoading(true);
+		  const res = await Orderget(token);
+		  setorders(res.data);
+		})();
+		setIsLoading(false);
+	  }, [isLoad, token]);
+	  console.log(orders)
 	return (
 		<div className="overflow-hidden w-full max-w-6xl mx-auto overflow-x-auto rounded-lg border border-gray-200">
 			<table className="min-w-full divide-y divide-gray-100 text-sm">
@@ -19,24 +37,24 @@ const OrdersTable = () => {
 					</tr>
 				</thead>
 				<tbody className="divide-y divide-gray-200 text-muted">
-					{ordersTableData.row.map((each) => (
+					{orders?.map((each) => (
 						<tr key={each.id}>
 							<td className="sticky inset-y-0 left-0 bg-white px-4 py-3">
 								<input className="h-4 w-4 cursor-pointer rounded border-gray-200 text-primary focus:ring-primary" type="checkbox" id={each.id} />
 							</td>
 							<td className="whitespace-nowrap px-4 py-3 ">{each.id}</td>
-							<td className="whitespace-nowrap px-4 py-3 ">{each.reference}</td>
+							<td className="whitespace-nowrap px-4 py-3 ">{each.order_id}</td>
 							<td className="whitespace-nowrap px-4 py-3 ">{each.customer}</td>
 							<td className="whitespace-nowrap px-4 py-3 ">₹ {each.Total}.00</td>
-							<td className="whitespace-nowrap px-4 py-3 ">{each.payment}</td>
+							<td className="whitespace-nowrap px-4 py-3 ">{each.payment_mode}</td>
 							<td className="whitespace-nowrap px-4 py-3 text-white tracking-wide text-xs">
 								{each.status === "not-paid" && <span className="bg-indigo-500 px-3 py-1 rounded-full">On pre-order (not paid)</span>}
 								{each.status === "awaiting" && <span className="bg-blue-500 px-3 py-1 rounded-full">Awaiting check payment</span>}
 								{each.status === "preparing" && <span className="bg-yellow-500 px-3 py-1 rounded-full">Preparing the order</span>}
 								{each.status === "error" && <span className="bg-red-500 px-3 py-1 rounded-full">Payment error</span>}
-								{each.status === "delivered" && <span className="bg-green-500 px-3 py-1 rounded-full">Delivered</span>}
+								{each.status === "Accepted" && <span className="bg-green-500 px-3 py-1 rounded-full">Accepted</span>}
 							</td>
-							<td className="whitespace-nowrap px-4 py-3 ">{each.date}</td>
+							<td className="whitespace-nowrap px-4 py-3 ">{each.ordered_date}</td>
 						</tr>
 					))}
 				</tbody>

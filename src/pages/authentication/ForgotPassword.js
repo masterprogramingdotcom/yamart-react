@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 import { AuthPageTopInfo } from "../../components/AuthPageComponents";
 import AuthPageLayout from "../../components/layouts/AuthPageLayout";
 import { useFormik } from "formik";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 import {
 	FormCheckBox,
 	FormInputComp,
@@ -13,15 +14,27 @@ import {
 	LoadingBtn,
   } from "../../components/AuthPageComponents";
 const ForgotPassword = () => {
+	const [email, setemail] = useState()
+	const baseUrl = "http://13.127.209.252/auth";
 	const [isLoading, setIsLoading] = useState(false);
-	const { values, errors, handleChange, handleSubmit } = useFormik({
-		initialValues: {
-		  name: "",
-		  username: "",
-		  password: "",
-		  confirm_password: "",
-		  email: "",
-		},})
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (email) {
+		  const res = await axios.post(`${baseUrl}/send-reset-password-email/`, {
+			email:email
+		  })
+		  if (res?.code === "ERR_BAD_REQUEST") {
+			toast.error(res.response.data.message);
+		  }
+		  if (res?.response?.status === 400) {
+			toast.error(res?.response?.data?.errors?.non_field_errors[0]);
+		  }
+		  if (res?.status === 200) {
+			toast.success(res.data?.status);
+		  }
+		}}
+	
 	return (
 		<AuthPageLayout>
 		<div className="flex items-center justify-center px-16 h-full w-full">
@@ -54,11 +67,10 @@ const ForgotPassword = () => {
         <FormInputComp
           type="email"
           name="email"
-          onChange={handleChange}
-          value={values.email}
+		  onChange={(e) => setemail(e.target.value)}
+          value={email}
           placeholder="Enter Email Address"
         />
-        {errors && <p className="text-red-600 text-sm mt-2">{errors.email}</p>}
       </div>
       <div className="flex items-center gap-2 text-sm text-muted tracking-wide">
       </div>
