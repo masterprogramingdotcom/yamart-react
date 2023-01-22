@@ -1,7 +1,17 @@
 import react from "react"
-
-const gst = (gstalldata) => {
-console.log("on gst page",gstalldata.gstalldata)
+import { useState } from "react";
+import axios from "axios";
+const Gst = () => {
+  const [gstnumber, setgstnumber] = useState("")
+  const [gstdata, setgstdata] = useState("")
+const handlechange = (async) => {
+		 axios.get(`http://sheet.gstincheck.co.in/check/64d333211e76355dbfafcb4a4d3f6a68/${gstnumber}/`,)
+			 .then((response = response.json()) => {
+				console.log(response)
+		  console.log(response?.data?.data)
+		  setgstdata(response?.data?.data)
+				})
+      }
 return (
     <div className="w-100">
     <div className="w-96">
@@ -14,31 +24,31 @@ return (
           required
           type="text"
           name="title"
-          value=""
-          onChange=""
+          value={gstnumber}
+          onChange={(e) => setgstnumber(e.target.value)}
           className="w-96  text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Product Name"
         />
         <input id="link-checkbox" type="checkbox" value="" className="mt-2 mx-8 content-center w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
 
-        <button className="flex bg-black hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
+        <button onClick={handlechange} className="flex bg-black hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
   Verify
 </button>
         </div>
         <div class="max-w-2xl mt-10 grid grid-cols-2 gap-2">
   <div>
   <p class=" font-light text-gray-500 dark:text-gray-400">GSTIN </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300">{gstalldata.gstalldata.gstalldata?.gstin}</p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300">{gstdata?.gstin}</p>
   </div>
 
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Business Type </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.dty} </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstdata?.dty} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Business Name </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.lgnm} </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstdata?.lgnm} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Registered Business Address </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstalldata.gstalldata.gstalldata?.pradr?.adr} </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{gstdata?.pradr?.adr} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">PAN Number </p>
   <p class="mb-3 text-gray-900 dark:text-gray-300 ">AAJCA4788P </p>
@@ -51,4 +61,4 @@ return (
 );
 
 };
-export default gst;
+export default Gst;

@@ -5,21 +5,56 @@ import { useEffect } from "react";
 import {Link} from "react-router-dom";
 import ECommerceLayout from "../../../components/layouts/ECommerceLayout";
 import AccountdetailsTabs from "./AccountDetailsTabs";
+import { useSelector } from "react-redux";
 import axios from "axios"
 import { useState } from "react";
-const OrderDetails = () => {
+import { useFormik } from "formik";
+import { Orderget } from "../../../api/orders";
+import { toast } from "react-toastify";
+
+
+const AccountDetails = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const token = useSelector((state) => state.auth.token);
 	const [gstdata, setgstdata] = useState()
-	useEffect(() => {
-		fetchData();
-	 },[]);
-	  const fetchData = async() => {
-		await axios.get(`http://sheet.gstincheck.co.in/check/64d333211e76355dbfafcb4a4d3f6a68/27AAACU2414K3ZD/`,)
-			 .then((response = response.json()) => {
-				console.log(response)
-		  console.log(response?.data?.data)
-		  setgstdata(response?.data?.data)
-				})
-		}
+	const accountDetailsFormik = useFormik({
+		initialValues: {
+		  gstin: "",
+		  gst_verify:"true",
+		  business_type: "",
+		  business_name: "",
+		  business_address: "",
+		  pan_number: "",
+		  address_1: "",
+		  address_2: "",
+		  pincode: "",
+		  city: "",
+		  state: "",
+		  account_number: "",
+		  ifsc_code: "",
+		  bank_image: "",
+		  store_name: "",
+		  full_name: "",
+		},
+		onSubmit: (values, action) => {
+			console.log(values);
+			handlePostProduct(values);
+		  },
+		});
+	    const handlePostProduct = async (values) => {
+			setIsLoading(true);
+			const res = await Orderget(values, token);
+			console.log(res);
+		
+			if (res?.status === 201) {
+				setIsLoading(false);
+			  toast.success("Product Created!");
+			}
+		
+			if (res?.code === "ERR_BAD_REQUEST") {
+			  toast.error("Some Error! please try again!");
+			}
+		  };
 	return (
 		<ECommerceLayout>
 			<div className="pt-4 max-w-6xl mx-auto mb-10">
@@ -29,11 +64,11 @@ const OrderDetails = () => {
 				</Link>
 				
 				<div className="mt-8 pb-10">
-					<AccountdetailsTabs gstalldata={gstdata} />
+					<AccountdetailsTabs formik={accountDetailsFormik}/>
 				</div>
 			</div>
 		</ECommerceLayout>
 	);
 };
 
-export default OrderDetails;
+export default AccountDetails;
