@@ -1,5 +1,5 @@
 import react from "react"
-const supplier = (formlink) => {
+const supplier = ({formik}) => {
 
 return (
     <div className="max-w-xl">
@@ -16,9 +16,9 @@ return (
         <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="store_name"
+          value={formik.values.store_name}
+          onChange={formik.handleChange}
           className="mb-3 w-full text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Store Name"
         />
@@ -28,9 +28,9 @@ return (
 <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="full_name"
+          value={formik.values.full_name}
+          onChange={formik.handleChange}
           className="mb-4 w-full text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Your Full Name"
         />
@@ -39,8 +39,6 @@ return (
     <label for="link-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree to comply with Yamart seller T&C</label>
 </div>
 </div>
-<button class="mt-4 bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Save</span>
- </button>
         </div>
 );
 

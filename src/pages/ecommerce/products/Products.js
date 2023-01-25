@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 const Products = () => {
   const [isShowCreateCategoryModal, setIsShowCreateCategoryModal] =
     useState(false);
+    const [Query, setQuery] = useState("")
   const [category, setCategory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const token = useSelector((state) => state.auth.token);
@@ -81,6 +82,7 @@ const Products = () => {
                   "w-full  pl-10 border border-gray-200 focus:ring-primary focus:ring-2 text-darken focus:border-transparent rounded-full shadow-sm appearance-none placeholder:text-sm placeholder:text-gray-400"
                 }
                 placeholder="Search Products..."
+                onChange={e=>setQuery(e.target.value)}
               />
             </div>
             <Link
@@ -172,7 +174,7 @@ const Products = () => {
       </ModalComponent>
 
       <div className="pb-10">
-        <ProductsTable />
+        <ProductsTable Query={Query}/>
       </div>
     </ECommerceLayout>
   );

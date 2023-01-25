@@ -1,7 +1,8 @@
 
 import axios from "axios";
 const apiUrl = "http://13.127.209.252";
-export const productPatch = async (data, token, id) => {
+export const accountpatch = async (data, token) => {
+    console.log("ttt",token)
     try {
       const res = await axios.patch(`${apiUrl}/auth/profile/`, data, {
         headers: {

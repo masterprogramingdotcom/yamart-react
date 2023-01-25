@@ -1,6 +1,6 @@
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { productGet, productDelete } from "../../../api/product";
 import { Pagination } from "../../../components/ECommercePageComponents";
@@ -8,13 +8,16 @@ import { productsTableData } from "../ecommerceContant";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-const ProductsTable = () => {
+const ProductsTable = (Query) => {
+  let PageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [pdelete, setpdelete] = useState()
   const isLoad = useSelector((state) => state.loader.isLoad);
   const token = useSelector((state) => state.auth.token);
-
+console.log(Query)
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -29,13 +32,25 @@ const ProductsTable = () => {
       const res = await productDelete(token, pdelete);
       if(res.status===204) {
         toast.success("Product Deleted Successful!");
+        var newallproduct = products.filter((item)=> {
+          return item.id !==pdelete;
+        })
+        setProducts(newallproduct)
       }
       if (res?.code === "ERR_BAD_REQUEST") {
         toast.error("Some Error! please try again!");
       }
 })();
   }, [pdelete]);
-console.log(pdelete)
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return products.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
+
+  console.log(currentTableData)
+  
+// console.log(products.filter(user=>user.title.toLowerCase().includes("a")))
   return (
     <div className="overflow-hidden w-full max-w-6xl mx-auto overflow-x-auto rounded-lg border border-gray-200">
       <table className="min-w-full divide-y divide-gray-100 text-sm">
@@ -48,7 +63,7 @@ console.log(pdelete)
                 id="SelectAll"
               />
             </th>
-            {productsTableData.header.map((each) => (
+            {productsTableData?.header.map((each) => (
               <th key={each.id} className="whitespace-nowrap px-4 py-3">
                 {each.title}
               </th>
@@ -58,7 +73,7 @@ console.log(pdelete)
         <tbody className="divide-y divide-gray-200 text-muted">
           {!isLoading ? (
             products &&
-            products.map((each) => (
+            products.filter(user=>user.title.toLowerCase().includes(Query.Query)).map((each) => (
               <tr key={each.id}>
                 <td className="sticky inset-y-0 left-0 bg-white px-4 py-3">
                   <input
@@ -83,10 +98,10 @@ console.log(pdelete)
                   <Link to="" className="text-2xl">
                     <AiFillEye />
                   </Link>
-                  <Link to={`/edit-product/${each.id}`} className="text-2xl">
+                  <Link to={`/edit-product/${each.id}`} className="text-sm	px-2">
                     Edit
                   </Link>
-                  <Link onClick={(e)=> {setpdelete(each.id)}} to="" className="text-2xl">
+                  <Link onClick={(e)=> {setpdelete(each.id)}} to="" className="text-sm	px-2">
                     Delete
                   </Link>
                 </td>
@@ -97,7 +112,13 @@ console.log(pdelete)
           )}
         </tbody>
       </table>
-      <Pagination selectValue={""} increaseValue={""} />
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={products.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import {faAngleDown, faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
+import { usePagination } from "./usePagination";
 export const PageTitle = ({title}) => {
 	return <h2 className="font-sans-pro font-bold text-4xl text-darken ">{title}</h2>;
 };
@@ -9,7 +9,34 @@ export const menDummyImg = "https://img.freepik.com/free-photo/portrait-successf
 
 export const albumImg = "../asset/images/album.jpeg";
 
-export const Pagination = ({pageNo}) => {
+export const Pagination = props => {
+	const {
+		onPageChange,
+		totalCount,
+		siblingCount = 1,
+		currentPage,
+		pageSize,
+		className
+	  } = props;
+	
+	  const paginationRange = usePagination({
+		currentPage,
+		totalCount,
+		siblingCount,
+		pageSize
+	  });
+	  if (currentPage === 0 || paginationRange?.length < 2) {
+		return null;
+	  }
+	  const onNext = () => {
+		onPageChange(currentPage + 1);
+	  };
+	
+	  const onPrevious = () => {
+		onPageChange(currentPage - 1);
+	  };
+	
+	  let lastPage = paginationRange[paginationRange?.length - 1];
 	return (
 		<div className="w-full py-3 flex items-center justify-end gap-8 pr-4 text-sm text-gray-500 border-t">
 			<div className="flex items-center gap-2">
@@ -20,14 +47,14 @@ export const Pagination = ({pageNo}) => {
 						<option value="20">20</option>
 						<option value="30">20</option>
 					</select>
-					<FontAwesomeIcon icon={faAngleDown} className="absolute top-1 text-xs right-2.5" />
+					<FontAwesomeIcon  icon={faAngleDown} className="absolute top-1 text-xs right-2.5" />
 				</label>
 			</div>
 			<div className="flex items-center gap-4">
 				<span>1-10 of 20</span>
 				<div className="flex items-center gap-2">
-					<FontAwesomeIcon className="cursor-pointer hover:text-darken duration-300" icon={faAngleLeft} />
-					<FontAwesomeIcon className="cursor-pointer hover:text-darken duration-300" icon={faAngleRight} />
+					<FontAwesomeIcon className="cursor-pointer hover:text-darken duration-300" onClick={onPrevious} icon={faAngleLeft} />
+					<FontAwesomeIcon className="cursor-pointer hover:text-darken duration-300" onClick={onNext} icon={faAngleRight} />
 				</div>
 			</div>
 		</div>

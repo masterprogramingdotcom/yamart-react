@@ -1,16 +1,28 @@
 import react from "react"
 import { useState } from "react";
 import axios from "axios";
-const Gst = () => {
+import { useEffect } from "react";
+import { LoadingBtn } from "../../../../components/AuthPageComponents";
+
+const Gst = ({formik}) => {
   const [gstnumber, setgstnumber] = useState("")
   const [gstdata, setgstdata] = useState("")
+  const [gstin, setgstin] = useState()
+  const [business_type, setbusiness_type] = useState()
+  const [business_name, setbusiness_name] = useState()
+  const [business_address, setbusiness_address] = useState()
+
 const handlechange = (async) => {
-		 axios.get(`http://sheet.gstincheck.co.in/check/64d333211e76355dbfafcb4a4d3f6a68/${gstnumber}/`,)
+		 axios.get(`http://sheet.gstincheck.co.in/check/d289319584384f2b08b8f8fc5e0ab1c1/${gstnumber}/`,)
 			 .then((response = response.json()) => {
 				console.log(response)
-		  console.log(response?.data?.data)
-		  setgstdata(response?.data?.data)
-				})
+		     setgstdata(response?.data?.data)
+         setgstin(response?.data?.data.gstin)
+         setbusiness_type(response?.data?.data.dty)
+         setbusiness_name(response?.data?.data.lgnm)
+         setbusiness_address(response?.data?.data.pradr.adr)
+         localStorage.setItem("gstdata", JSON.stringify(response?.data?.data));
+        				})
       }
 return (
     <div className="w-100">

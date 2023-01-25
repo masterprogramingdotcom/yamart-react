@@ -1,5 +1,5 @@
 import react from "react"
-const pickup = (formlink) => {
+const pickup = ({formik}) => {
 
 return (
     <div className="max-w-xl">
@@ -16,18 +16,18 @@ return (
         <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="address_1"
+          value={formik.values.address_1}
+          onChange={formik.handleChange}
           className="mb-3 w-full text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Room/ Floor/ Building Number"
         />
           <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="address_2"
+          value={formik.values.address_2}
+          onChange={formik.handleChange}
           className="mb-3 w-full text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Street/ Locality/ Landmark"
         />
@@ -35,27 +35,27 @@ return (
         <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="pincode"
+          value={formik.values.pincode}
+          onChange={formik.handleChange}
           className="w-96  text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="Pincode"
         />
          <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="city"
+          value={formik.values.city}
+          onChange={formik.handleChange}
           className="w-96  text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="City"
         />
          <input
           required
           type="text"
-          name="title"
-          value=""
-          onChange=""
+          name="state"
+          value={formik.values.state}
+          onChange={formik.handleChange}
           className="w-96  text-darken border border-black focus:ring-primary focus:ring-1  focus:border-transparent rounded-md shadow-sm appearance-none placeholder:text-sm"
           placeholder="State"
         />

@@ -3,14 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import album from "../../../../asset/images/album.jpeg";
 const ImageUpload = ({ formik }) => {
+  const imgurl = "http://13.127.209.252"
   const [fileLength, setFileLength] = useState(0);
+  const [fileArray, setfileArray] = useState([]);
 
   const handleChange = (e) => {
     console.log(e.target.files);
     const files = e.target.files;
     setFileLength(files.length);
+
     for (let i = 0; i < files.length; i++) {
       formik.setFieldValue(`image_${i + 1}`, files[i]);
+      fileArray.push(URL.createObjectURL(files[i]))
     }
   };
 
@@ -29,7 +33,7 @@ const ImageUpload = ({ formik }) => {
             accept=".jpg,.jpeg,.png"
             className="hidden"
           />
-        </label>
+        </label></div>
         {fileLength > 0 ? (
           Array.from(Array(fileLength - 1)).map((_, index) => (
             <div
@@ -46,8 +50,46 @@ const ImageUpload = ({ formik }) => {
         ) : (
           <></>
         )}
+         
+         <div className="flex flex-row gap-4">
+                    { formik.values.image_1 ?
+         <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={`http://13.127.209.252${formik.values.image_1}`} alt="..." />
+              </div>
+              : null
+          }
+
+          { formik.values.image_2 ?
+              <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={`http://13.127.209.252${formik.values.image_2}`} alt="..." />
+              </div>
+              : null
+}
+{ formik.values.image_3 ?
+              <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={`http://13.127.209.252${formik.values.image_3}`} alt="..." />
+              </div>
+              : null
+}
+{ formik.values.image_4 ?
+              <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={`http://13.127.209.252${formik.values.image_4}`} alt="..." />
+              </div>
+              : null
+}
+{ formik.values.image_5 ?
+              <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={`http://13.127.209.252${formik.values.image_5}`} alt="..." />
+              </div>
+              : null
+}
+          {(fileArray || []).map(url => (
+            <div class="grid grid-rows-4 grid-flow-col gap-4">
+              <img src={url} alt="..." />
+              </div>
+          ))}
       </div>
-    </div>
+      </div>
   );
 };
 

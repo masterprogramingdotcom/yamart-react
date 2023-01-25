@@ -29,7 +29,8 @@ const Productedit = () => {
     setIsLoading(true);
     const res = await productPatch(values, token, id);
     console.log(res);
-
+  
+  /* Compare InitialValues and Onsubmit value */ 
     if (res?.status === 200) {
       toast.success("Product Updated Successful!");
       navigate("/products");
@@ -55,7 +56,21 @@ const Productedit = () => {
 			setproductdata(response?.data?.slug)
 			})
     }
-
+    const getModifiedValues = (values, initialValues) => {
+      let modifiedValues = {};
+      if (values) {
+        Object.entries(values).forEach((entry) => {
+          let key = entry[0];
+          let value = entry[1];
+    
+          if (value !== initialValues[key]) {
+            modifiedValues[key] = value;
+          }
+        });
+      }
+    
+      return modifiedValues;
+    };
   const productDetailsFormik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -80,13 +95,15 @@ const Productedit = () => {
       image_9: productdata?.image_9,
       image_10: productdata?.image_10,
     },
-
     onSubmit: (values, action) => {
       console.log(values);
-      handlePostProduct(values);
+      const modifiedValues = getModifiedValues(values, productDetailsFormik.initialValues); 
+       console.log(modifiedValues)
+      handlePostProduct(modifiedValues);
     },
-  });
-
+  }
+  );
+  console.log(productDetailsFormik)
 
   return (
     <ECommerceLayout>

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios"
 import { useState } from "react";
 import { useFormik } from "formik";
-import { Orderget } from "../../../api/orders";
+import { accountpatch } from "../../../api/account";
 import { toast } from "react-toastify";
 
 
@@ -17,7 +17,10 @@ const AccountDetails = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const token = useSelector((state) => state.auth.token);
 	const [gstdata, setgstdata] = useState()
+	const items = JSON.parse(localStorage.getItem('gstdata'));
+			console.log(items)
 	const accountDetailsFormik = useFormik({
+		enableReinitialize: true,
 		initialValues: {
 		  gstin: "",
 		  gst_verify:"true",
@@ -42,13 +45,17 @@ const AccountDetails = () => {
 		  },
 		});
 	    const handlePostProduct = async (values) => {
+			accountDetailsFormik.setFieldValue(`gstin`,items.gstin );
+			accountDetailsFormik.setFieldValue(`business_type`,items.dty );
+			accountDetailsFormik.setFieldValue(`business_name`,items.lgmn);
+			accountDetailsFormik.setFieldValue(`business_address`,items.pradr?.adr );
 			setIsLoading(true);
-			const res = await Orderget(values, token);
+			const res = await accountpatch(values, token);
 			console.log(res);
 		
-			if (res?.status === 201) {
+			if (res?.status === 206) {
 				setIsLoading(false);
-			  toast.success("Product Created!");
+			  toast.success("Profile Data Updated Successful!");
 			}
 		
 			if (res?.code === "ERR_BAD_REQUEST") {
@@ -62,7 +69,12 @@ const AccountDetails = () => {
 					<FontAwesomeIcon icon={faArrowLeft} />
 					<h3 className=" font-sans-pro text-3xl font-semibold">Complete Account Details</h3>
 				</Link>
-				
+				<button
+              onClick={accountDetailsFormik.handleSubmit}
+              className="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "
+            >
+              <span>Save</span>
+            </button>
 				<div className="mt-8 pb-10">
 					<AccountdetailsTabs formik={accountDetailsFormik}/>
 				</div>

@@ -44,7 +44,7 @@ const [orders, setorders] = useState()
 							</td>
 							<td className="whitespace-nowrap px-4 py-3 ">{each.id}</td>
 							<td className="whitespace-nowrap px-4 py-3 ">{each.order_id}</td>
-							<td className="whitespace-nowrap px-4 py-3 ">{each.customer}</td>
+							<td className="whitespace-nowrap px-4 py-3 ">{each.user_first_name} {each.user_last_name}</td>
 							<td className="whitespace-nowrap px-4 py-3 ">₹ {each.Total}.00</td>
 							<td className="whitespace-nowrap px-4 py-3 ">{each.payment_mode}</td>
 							<td className="whitespace-nowrap px-4 py-3 text-white tracking-wide text-xs">
@@ -59,7 +59,7 @@ const [orders, setorders] = useState()
 					))}
 				</tbody>
 			</table>
-			<Pagination selectValue={""} increaseValue={""} />
+			{/* <Pagination selectValue={""} increaseValue={""} /> */}
 		</div>
 	);
 };
