@@ -1,4 +1,4 @@
-import {faHouse, faPhone, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faHouse, faPhone, faShoppingCart, faUser} from "@fortawesome/free-solid-svg-icons";
 
 export const navContent = {
 	sidenav: [
@@ -28,6 +28,12 @@ export const navContent = {
 				{id: 1, title: "Chats", path: ""},
 				{id: 2, title: "Customer Helpline", path: ""},
 			],
+		},
+		{
+			id: 3,
+			icon: faUser,
+			title: "Account",
+			path: "/account-details",
 		},
 	],
 };

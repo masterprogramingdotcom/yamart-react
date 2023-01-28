@@ -65,16 +65,18 @@ const AccountDetails = () => {
 	return (
 		<ECommerceLayout>
 			<div className="pt-4 max-w-6xl mx-auto mb-10">
-				<Link to="/orders" className="flex items-center mb-12 gap-2 text-gray-600 cursor-pointer">
+				<Link to="/orders" className="flex items-center mb-3 gap-2 text-gray-600 cursor-pointer">
 					<FontAwesomeIcon icon={faArrowLeft} />
 					<h3 className=" font-sans-pro text-3xl font-semibold">Complete Account Details</h3>
 				</Link>
+				<div className="flex justify-end">
 				<button
               onClick={accountDetailsFormik.handleSubmit}
-              className="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "
+     className="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px] justify-end px-6 rounded-full items-center gap-2 text-sm"
             >
               <span>Save</span>
             </button>
+			</div>
 				<div className="mt-8 pb-10">
 					<AccountdetailsTabs formik={accountDetailsFormik}/>
 				</div>

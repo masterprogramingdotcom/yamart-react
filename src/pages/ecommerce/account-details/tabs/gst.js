@@ -5,17 +5,20 @@ import { useEffect } from "react";
 import { LoadingBtn } from "../../../../components/AuthPageComponents";
 
 const Gst = ({formik}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [gstnumber, setgstnumber] = useState("")
   const [gstdata, setgstdata] = useState("")
   const [gstin, setgstin] = useState()
   const [business_type, setbusiness_type] = useState()
   const [business_name, setbusiness_name] = useState()
   const [business_address, setbusiness_address] = useState()
+  
 
 const handlechange = (async) => {
+  setIsLoading(true);
 		 axios.get(`http://sheet.gstincheck.co.in/check/d289319584384f2b08b8f8fc5e0ab1c1/${gstnumber}/`,)
 			 .then((response = response.json()) => {
-				console.log(response)
+        setIsLoading(false);
 		     setgstdata(response?.data?.data)
          setgstin(response?.data?.data.gstin)
          setbusiness_type(response?.data?.data.dty)
@@ -42,10 +45,14 @@ return (
           placeholder="Product Name"
         />
         <input id="link-checkbox" type="checkbox" value="" className="mt-2 mx-8 content-center w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-
+        {isLoading ? (
+            <div className="w-full flex justify-center items-center h-full">
+              <LoadingBtn />
+            </div>):(
         <button onClick={handlechange} className="flex bg-black hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-lg">
   Verify
-</button>
+</button>)
+}
         </div>
         <div class="max-w-2xl mt-10 grid grid-cols-2 gap-2">
   <div>
@@ -67,8 +74,6 @@ return (
   </div>
 
 </div>
-<button class="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Continue</span>
- </button>
         </div>
 );
 

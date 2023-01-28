@@ -68,27 +68,25 @@ return (
 <div class="mt-10 grid grid-cols-[400px_auto] gap-2">
   <div className="">
   <p class=" font-light text-gray-500 dark:text-gray-400">Room/ Floor/ Building Number </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300">208, 2ND FLOOR, AVOID, NIRMAL GALAXY </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300">{formik.values.address_1}</p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Pincode </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">400080 </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{formik.values.pincode} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Street/ Locality </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">LBS MARG MULUND W </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{formik.values.address_2}</p>
   </div>
 
   <div><p class=" font-light text-gray-500 dark:text-gray-400">City </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">Mumbai Suburban </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{formik.values.city} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">Landmark </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">AAJCA4788P </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{formik.values.address_2} </p>
   </div>
   <div><p class=" font-light text-gray-500 dark:text-gray-400">State </p>
-  <p class="mb-3 text-gray-900 dark:text-gray-300 ">Maharashtra </p>
+  <p class="mb-3 text-gray-900 dark:text-gray-300 ">{formik.values.state} </p>
   </div>
 </div>
-<button class="bg-primary hover:bg-indigo-500 duration-300 text-white h-[40px]  px-6 rounded-full flex items-center gap-2 text-sm  "><span>Continue</span>
- </button>
         </div>
 );
 
